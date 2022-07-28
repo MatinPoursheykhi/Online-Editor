@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.2/css/all.min.css" integrity="sha512-1sCRPdkRXhBV2PBLUdRb4tMg1w2YPf37qatUFeS7zlBy7jJI8Lf4VHwWfZZfpXtYSLy85pkm9GaYVYMfw5BC1A==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <title>Online Editor</title>
+    <style>
+        *,
+        *::after,
+        *::before{
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+        }
+        body{
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(to right, #c9d6ff, #e4d6d6); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+        }
+        section{
+            width: 80%;
+            height: 80vh;
+            border: 2px solid rgba(0, 0, 0, 0.3);
+            border-radius: 15px;
+        }
+        section>div{
+            width: 100%;
+            border-bottom:1px solid rgba(0, 0, 0, 0.3);
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            flex-wrap: wrap;
+            padding: 1rem;
+        }
+        select{
+            background-color: transparent;
+            border:1px solid rgba(0, 0, 0, 0.3);
+        }
+        section>div>div , section>div>select{
+            cursor: pointer;
+            margin-right: 1rem;
+        }
+        section>div>div{
+            width: 40px;
+            aspect-ratio: 1;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+        }
+        section>div>div.bacgr{
+            background-color: rgba(255, 0, 0, 0.334);
+            color: #fff;
+            
+        }
+        section>div>div:nth-of-type(4){
+            text-decoration: line-through;
+        }
+        section #text{
+            width: 100%;
+            height: 90%;
+            padding: 1rem;
+        }
+        p.bold{
+            font-weight: bold;
+        }
+        p.italic{
+            font-style: italic;
+        }
+        p.underline{
+            text-decoration: underline;
+        }
+        p.lineThrough{
+            text-decoration: line-through;
+        }
+        p.alignCenter{
+            text-align: center;
+        }
+        p.alignLeft{
+            text-align: left;
+        }
+        p.alignRight{
+            text-align: right;
+        }
+        p.alignJustify{
+            text-align: justify;
+        }
+        p:focus{
+            outline: none;
+        }
+        #color{
+            width: 30px;
+            height: 15px;
+            cursor: pointer;
+        }
+        .div{
+            cursor: default;
+        }
+        .div span{
+            font-size: 18px;
+            color: rgba(0, 0, 0, 0.6);
+            margin-bottom: -10px;
+        }
+        .div.bacgr{
+            background-color: transparent;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+    <section>
+        <div>
+            <div onclick="_bold(this)"><i class="fa-solid fa-bold"></i></div>
+            <div onclick="_italic(this)"><i class="fa-solid fa-italic"></i></div>
+            <div onclick="_underline(this)"><i class="fa-solid fa-underline"></i></div>
+            <div onclick="_lineThrough(this)">abc</div>
+            <div onclick="_alignCenter(this)"><i class="fa-solid fa-align-center"></i></div>
+            <div onclick="_alignLeft(this)"><i class="fa-solid fa-align-left"></i></div>
+            <div onclick="_alignRight(this)"><i class="fa-solid fa-align-right"></i></div>
+            <div onclick="_alignJustify(this)"><i class="fa-solid fa-align-justify"></i></div>
+            <select name="" id="fontSize">
+                <option value="10">10</option>
+                <option value="12">12</option>
+                <option value="14">14</option>
+                <option selected value="16">16</option>
+                <option value="18">18</option>
+                <option value="20">20</option>
+                <option value="22">22</option>
+                <option value="24">24</option>
+                <option value="26">26</option>
+                <option value="28">28</option>
+                <option value="30">30</option>
+                <option value="32">32</option>
+                <option value="34">34</option>
+                <option value="36">36</option>
+                <option value="38">38</option>
+                <option value="40">40</option>
+            </select>
+            <select name="" id="hSize">
+                <option selected value="p">Normal</option>
+                <option value="h1">H1</option>
+                <option value="h2">H2</option>
+                <option value="h3">H3</option>
+                <option value="h4">H4</option>
+                <option value="h5">H5</option>
+                <option value="h6">H6</option>
+            </select>
+            <div class="div">
+                <span>A</span>
+                <input type="color" id="color">
+            </div>
+        </div>
+        <p id="text" contenteditable="true" tabindex="0" spellcheck="false"></p>
+    </section>
+</body>
+<script>
+    let fontStyle = document.querySelectorAll('section>div>div')
+    let textArea = document.getElementById('text')
+    textArea.focus()
+
+    for(i=0; i<fontStyle.length; i++){
+        fontStyle[i].addEventListener('click',function(){
+        this.classList.toggle('bacgr')
+        })
+    }
+    
+    
+    function _bold(self){
+        self.parentElement.nextElementSibling.classList.toggle('bold')
+    }
+    function _italic(self){
+        self.parentElement.nextElementSibling.classList.toggle('italic')
+    }
+    function _underline(self){
+        self.parentElement.nextElementSibling.classList.toggle('underline')
+    }
+    function _lineThrough(self){
+        self.parentElement.nextElementSibling.classList.toggle('lineThrough')
+    }
+    function _alignCenter(self){
+        self.parentElement.nextElementSibling.classList.toggle('alignCenter')
+    }
+    function _alignLeft(self){
+        self.parentElement.nextElementSibling.classList.toggle('alignLeft')
+    }
+    function _alignRight(self){
+        self.parentElement.nextElementSibling.classList.toggle('alignRight')
+    }
+    function _alignJustify(self){
+        self.parentElement.nextElementSibling.classList.toggle('alignJustify')
+    }
+
+    
+    let _fontSize = document.getElementById('fontSize').addEventListener('change',function(){
+        let temp = this.value
+        this.parentElement.nextElementSibling.style.fontSize = temp + 'px'
+    })
+
+    document.getElementById('hSize').addEventListener('change',function(){
+        let temp = this.value
+        x = textArea.innerText
+        textArea.innerHTML = '<'+temp+'>'+x+'</'+temp+'>'
+    })
+
+    document.getElementById('color').addEventListener('change',function(){
+        this.parentElement.parentElement.nextElementSibling.style.color = this.value
+    })
+</script>
+</html>
